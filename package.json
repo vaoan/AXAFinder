@@ -1,0 +1,63 @@
+{
+  "name": "axafinder",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.26.7",
+    "axios": "^0.19.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
+    "react-scripts": "3.3.0"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "babel-plugin-import": "^1.13.0",
+    "customize-cra": "^0.9.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.9.0",
+    "husky": "^4.2.1",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "lint-staged": "^10.0.2",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
+    "react-app-rewired": "^2.1.5",
+    "stylelint": "^13.0.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^19.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.css": "stylelint --fix",
+    "*.{js,css,md}": "prettier --write"
+  }
+}
