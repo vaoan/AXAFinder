@@ -19,7 +19,8 @@
     "no-param-reassign": 0,
     "import/no-unresolved": 0,
     "no-console": 0,
-    "spaced-comment": 0
+    "spaced-comment": 0,
+    "react/state-in-constructor": 0
   },
   "parserOptions": {
     "ecmaFeatures": {
