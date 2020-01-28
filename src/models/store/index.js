@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { createHashHistory } from 'history'
 import reducers from 'models/redux'
-import sagas from 'factories/sagas'
+import sagas from 'models/redux/sagas'
 import enviroment from 'constants/enviroment'
 
 export const history = createHashHistory({
