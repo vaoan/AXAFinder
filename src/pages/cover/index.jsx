@@ -5,6 +5,7 @@ class Cover extends Component {
         super(props);
         this.state = {  }
     }
+    
     render() { 
         return ( <div>Cover</div> );
     }

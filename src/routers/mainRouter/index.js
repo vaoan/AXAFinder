@@ -7,7 +7,7 @@ import NotFoundPage from 'pages/status/404'
 import RecursiveRouter from 'routers/recursiveRouter'
 import { Helmet } from 'react-helmet'
 import enviroment from 'constants/enviroment'
-import ColorInput from 'pages/colorInput'
+import Cover from 'pages/cover'
 
 const loadable = loader =>
   Loadable({
@@ -54,7 +54,7 @@ class Router extends React.Component {
       <ConnectedRouter history={history}>
         <Helmet titleTemplate={`${enviroment.site_name} | %s`} title="Index" />
         <Switch>
-          <Route exact path="/" render={() => <ColorInput />} />
+          <Route exact path="/" render={() => <Cover />} />
           {routes.map(route => (
             <RecursiveRouter route={route} key={route.path} />
           ))}

@@ -4,9 +4,9 @@ const path = require('path')
 module.exports = {
   plugin: new AntDesignThemePlugin({
     antDir: path.join(__dirname, './node_modules/antd'),
-    stylesDir: path.join(__dirname, './src/styles'),
-    varFile: path.join(__dirname, './src/styles/variables.less'),
-    mainLessFile: path.join(__dirname, './src/styles/index.less'),
+    stylesDir: path.join(__dirname, './src/assets/styles'),
+    varFile: path.join(__dirname, './src/assets/styles/variables.less'),
+    mainLessFile: path.join(__dirname, './src/styles/assets/index.less'),
     themeVariables: [
       '@body-background',
       '@font-size-base',
