@@ -1,5 +1,15 @@
 {
   "translation": {
-    "Welcome to React": "Welcome to React and react-i18next"
+    "Email": "Email",
+    "Password": "Password",
+    "Login": "Login",
+    "Did you forget your password": "Did you forget your password?",
+    "Welcome to de admin": "Welcome to de admin",
+    "Welcome to React": "Welcome to React and react-i18next",
+    "welcome": "Hello <br/> <strong>World</strong>",
+    "English": "English",
+    "Spanish": "Spanish",
+    "Cover message 1": "Integer sit amet justo dolor. Cras luctus eget diam at rhoncus. Vivamus et sollicitudin ex. Curabitur scelerisque posuere dictum.",
+    "Cover message 2": "Integer sit amet justo dolor. Cras luctus eget diam at rhoncus. Vivamus et sollicitudin ex. Curabitur scelerisque posuere dictum."
   }
 }
