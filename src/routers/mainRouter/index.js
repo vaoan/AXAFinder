@@ -6,7 +6,7 @@ import Loader from 'components/LayoutComponents/Loader'
 import NotFoundPage from 'pages/status/404'
 import RecursiveRouter from 'routers/recursiveRouter'
 import { Helmet } from 'react-helmet'
-import enviroment from 'constants/enviroment'
+import enviroment from 'constants/base'
 import Cover from 'pages/cover'
 
 const loadable = loader =>

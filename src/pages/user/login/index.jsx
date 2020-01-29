@@ -3,11 +3,11 @@ import { Form, Input, Button, Card, Row, Col } from 'antd'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Trans, withTranslation } from 'react-i18next'
+import T from 'components/SystemComponent/T'
 import LangChanger from 'components/LayoutComponents/LangChanger'
+import { loginAction } from 'models/redux/user/actions'
 import Logo from '../../../assets/images/logo.png'
 
-@withTranslation()
 @Form.create()
 @connect(({ user }) => ({ user }))
 class Login extends Component {
@@ -15,11 +15,9 @@ class Login extends Component {
     event.preventDefault()
     const { form, dispatch } = this.props
     form.validateFields((error, values) => {
+      const { email, password } = values
       if (!error) {
-        dispatch({
-          type: 'user/LOGIN',
-          payload: values,
-        })
+        dispatch(loginAction({ email, password }))
       }
     })
   }
@@ -47,14 +45,14 @@ class Login extends Component {
                 />
               </div>
 
-              <Form layout="vertical" hideRequiredMark onSubmit={this.onSubmit}>
-                <Form.Item label={<Trans>Email</Trans>}>
+              <Form layout="vertical" hideRequiredMark>
+                <Form.Item label={<T>Email</T>}>
                   {form.getFieldDecorator('email', {
                     // initialValue: 'admin@mediatec.org',
                     rules: [{ required: true, message: 'Porfavor ingrese su correo electrónico' }],
                   })(<Input size="default" />)}
                 </Form.Item>
-                <Form.Item label={<Trans>Password</Trans>}>
+                <Form.Item label={<T>Password</T>}>
                   {form.getFieldDecorator('password', {
                     // initialValue: 'cleanui',
                     rules: [{ required: true, message: 'Porfavor ingrese su contraseña' }],
@@ -68,13 +66,14 @@ class Login extends Component {
                     className="width-150 mr-4"
                     htmlType="submit"
                     loading={loading}
+                    onClick={this.onSubmit}
                   >
-                    <Trans>Login</Trans>
+                    <T>Login</T>
                   </Button>
                 </Col>
                 <Col xs={12}>
                   <Link to="/user/forgot" className="utils__link--underlined pull-right">
-                    <Trans>Did you forget your password</Trans>
+                    <T>Did you forget your password</T>
                   </Link>
                 </Col>
               </Row>
@@ -85,16 +84,16 @@ class Login extends Component {
               <div className="h-100 equal-distribution ">
                 <div>
                   <strong className="text-left" style={{ fontSize: '1.35rem' }}>
-                    <Trans>Welcome to de admin</Trans>
+                    <T>Welcome to de admin</T>
                   </strong>
                 </div>
                 <div>
                   <div className="mb-4 ludwig ludwig--info ludwig--quote">
-                    <Trans>Cover message 1</Trans>
+                    <T>Cover message 1</T>
                   </div>
                   <br />
                   <div className="mb-4 ludwig ludwig--info ludwig--quote">
-                    <Trans>Cover message 2</Trans>
+                    <T>Cover message 2</T>
                   </div>
                 </div>
                 <LangChanger />

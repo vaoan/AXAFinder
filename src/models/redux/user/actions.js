@@ -5,4 +5,12 @@ const actions = {
   LOGOUT: 'user/LOGOUT',
 }
 
+export const loginAction = ({ email, password }) => ({
+  type: actions.LOGIN,
+  payload: {
+    email,
+    password,
+  },
+})
+
 export default actions

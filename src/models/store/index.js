@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 import { createHashHistory } from 'history'
 import reducers from 'models/redux'
 import sagas from 'models/redux/sagas'
-import enviroment from 'constants/enviroment'
+import enviroment from 'constants/base'
 
 export const history = createHashHistory({
   basename: '', // The base URL of the app (see below)

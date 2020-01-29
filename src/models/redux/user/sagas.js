@@ -1,12 +1,11 @@
 import { all, takeEvery, put, call } from 'redux-saga/effects'
-import { notification } from 'antd'
-import { login, currentAccount, logout } from 'services/user'
+import { login } from 'services/user'
 import actions from './actions'
 
-export function* LOGIN({ payload }) {
-  const { email, password } = payload
+export function* LOGIN({ payload: { email, password } }) {
+  console.log({ email, password })
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.SET_STATE,
     payload: {
       loading: true,
     },
@@ -18,50 +17,37 @@ export function* LOGIN({ payload }) {
     success = null
   }
   if (success) {
-    notification.success({
-      message: 'Sesion iniciada',
-      description: 'Ha ingresado correctamente a DaviPay',
-    })
-    success.email = email
     yield put({
-      type: 'user/LOAD_CURRENT_ACCOUNT',
+      type: actions.LOAD_CURRENT_ACCOUNT,
       payload: { ...success },
     })
   } else {
-    notification.warn({
-      message: 'Sesion fallida',
-      description:
-        'La combinacion de usuario y contraseña es incorrecta. Porfavor verifique e intente nuevamente',
-    })
     yield put({
-      type: 'user/SET_STATE',
-      payload: {
-        loading: false,
-      },
+      type: actions.SET_STATE,
     })
   }
 }
 
-export function* LOAD_CURRENT_ACCOUNT(data) {
-  const { payload } = data
+export function* LOAD_CURRENT_ACCOUNT({ token, ...data }) {
+  console.log(data)
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.SET_STATE,
     payload: {
       loading: true,
     },
   })
-  const response = yield call(currentAccount, payload)
-  if (response.decoded) {
-    const { uid: id, photoURL: avatar, name, email, roles } = response.decoded
+
+  if (token) {
+    const { uid: id, photoURL: avatar, name, email, roles } = data
     yield put({
-      type: 'user/SET_STATE',
+      type: actions.SET_STATE,
       payload: {
         id,
         name,
         email,
         avatar,
         role: roles,
-        token: response,
+        token,
         authorized: true,
       },
     })
@@ -69,7 +55,7 @@ export function* LOAD_CURRENT_ACCOUNT(data) {
   }
 
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.SET_STATE,
     payload: {
       loading: false,
     },
@@ -77,20 +63,10 @@ export function* LOAD_CURRENT_ACCOUNT(data) {
 }
 
 export function* LOGOUT() {
-  yield call(logout)
+  // yield call(logout)
   localStorage.clear()
   yield put({
-    type: 'user/SET_STATE',
-    payload: {
-      id: '',
-      name: '',
-      role: '',
-      email: '',
-      avatar: '',
-      token: null,
-      authorized: false,
-      loading: false,
-    },
+    type: actions.SET_STATE,
   })
 }
 
