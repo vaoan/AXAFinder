@@ -1,65 +1,25 @@
 const AntDesignThemePlugin = require('antd-theme-webpack-plugin')
 const path = require('path')
+const fs = require('fs')
+
+const options = {
+  antDir: path.join(__dirname, './node_modules/antd'),
+  stylesDir: path.join(__dirname, './src/assets/styles'),
+  varFile: path.join(__dirname, './src/assets/styles/config/variables.less'),
+  mainLessFile: path.join(__dirname, './src/assets/styles/index.less'),
+  themeVariables: ['@primary-color'],
+  indexFileName: 'index.html',
+  generateOnce: false,
+  // lessUrl: path.join(__dirname, './node_modules/less/dist/less.min.js'),
+  publicPath: '',
+  customColorRegexArray: [], // An array of regex codes to match your custom color variable values so that code can identify that it's a valid color. Make sure your regex does not adds false positives.
+}
+const lessToJs = require('less-vars-to-js')
+const themeVariables = lessToJs(
+  fs.readFileSync(path.join(__dirname, './src/assets/styles/config/variables.less'), 'utf8'),
+)
 
 module.exports = {
-  plugin: new AntDesignThemePlugin({
-    antDir: path.join(__dirname, './node_modules/antd'),
-    stylesDir: path.join(__dirname, './src/assets/styles'),
-    varFile: path.join(__dirname, './src/assets/styles/variables.less'),
-    mainLessFile: path.join(__dirname, './src/styles/assets/index.less'),
-    themeVariables: [
-      '@body-background',
-      '@font-size-base',
-      '@font-size-lg',
-
-      '@font-family',
-      '@code-family',
-
-      '@border-color-base',
-
-      '@background-color-light',
-      '@background-color-base',
-      '@primary-color',
-      '@info-color',
-      '@success-color',
-      '@error-color',
-      '@highlight-color',
-      '@warning-color',
-      '@normal-color',
-
-      '@input-padding-horizontal',
-      '@input-padding-vertical-base',
-      '@input-padding-vertical-sm',
-      '@input-padding-vertical-lg',
-      '@input-border-color',
-      '@input-hover-border-color',
-
-      '@shadow-color',
-      '@box-shadow-base',
-      '@shadow-1-up',
-      '@shadow-1-down',
-      '@shadow-1-left',
-      '@shadow-1-right',
-      '@shadow-2',
-
-      '@table-header-bg',
-      '@table-header-sort-bg',
-      '@table-row-hover-bg',
-      '@table-padding-vertical',
-      '@table-padding-horizontal',
-      '@modal-mask-bg',
-
-      '@primary-color',
-      '@secondary-color',
-      '@text-color',
-      '@text-color-secondary',
-      '@heading-color',
-      '@layout-body-background',
-      '@btn-primary-bg',
-      '@layout-header-background',
-      '@border-color-base',
-    ],
-    indexFileName: 'index.html',
-    generateOnce: false, // generate color.less on each compilation
-  }),
+  plugin: new AntDesignThemePlugin(options),
+  themeVars: themeVariables,
 }

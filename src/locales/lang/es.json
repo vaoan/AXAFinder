@@ -1,5 +1,14 @@
 {
   "translation": {
-    "Welcome to React": "Bienvenido a React y react-i18next"
+    "Email": "Correo electronico",
+    "Password": "Clave",
+    "Login": "Ingresar",
+    "Did you forget your password": "¿Olvidó su contraseña?",
+    "Welcome to de admin": "Bienvenido al administrador",
+    "Welcome to React": "Willkommen bei React und react-i18next",
+    "English": "Ingles",
+    "Spanish": "Español",
+    "Cover message 1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget nunc vel nisi pharetra mattis. Sed eu quam sit amet magna pellentesque fringilla vel sit amet ante. ",
+    "Cover message 2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget nunc vel nisi pharetra mattis. Sed eu quam sit amet magna pellentesque fringilla vel sit amet ante. "
   }
 }

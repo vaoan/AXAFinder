@@ -1,5 +1,6 @@
 // Overriding CreateReactApp settings, ref: https://github.com/arackaf/customize-cra
 const themeConfig = require('./config-theme.js')
+
 const {
   override,
   addLessLoader,
@@ -18,17 +19,13 @@ module.exports = {
     useEslintRc(),
     fixBabelImports('import', {
       libraryName: 'antd',
-      libraryDirectory: 'lib',
+      libraryDirectory: 'es',
+      style: true,
     }),
     addLessLoader({
       javascriptEnabled: true,
-      modifyVars: {
-        '@primary-color': '#00375B',
-        '@text-color-secondary': '#eb2f96',
-        '@heading-color': '#fa8c16',
-      },
+      modifyVars: themeConfig.themeVars,
     }),
-    addWebpackPlugin(themeConfig.plugin),
   ),
   devServer: overrideDevServer(
     // dev server plugin
