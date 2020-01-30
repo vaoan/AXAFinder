@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects'
-/* import user from './user/sagas'
-import menu from './menu/sagas'
+import user from './user/sagas'
+/* import menu from './menu/sagas'
 import settings from './settings/sagas'
 import cupones from './cupones/sagas'
 import stores from './stores/sagas'
@@ -11,8 +11,8 @@ import challenges from './challenge/sagas'*/
 
 export default function* rootSaga() {
   yield all([
-    /*user(),
-    menu(),
+    user(),
+    /*menu(),
     settings(),
     cupones(),
     commerce(),
