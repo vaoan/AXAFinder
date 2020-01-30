@@ -3,64 +3,73 @@ import { Layout, Menu, Icon } from 'antd'
 import MainSwitcher from 'routers/mainSwitcher'
 
 const { Header, Content, Footer, Sider } = Layout
+const { SubMenu } = Menu
 
 class Dashboard extends Component {
+  state = {
+    collapsed: false,
+  }
+
+  onCollapse = collapsed => {
+    console.log(collapsed)
+    this.setState({ collapsed })
+  }
+
   render() {
-    const {
-      routes,
-      route: { path },
-    } = this.props
+    const { switcherData } = this.props
+
+    console.log(switcherData)
+
+    const { collapsed } = this.state
     return (
       <>
-        <Layout>
-          <Sider
-            style={{
-              overflow: 'auto',
-              height: '100vh',
-              position: 'fixed',
-              left: 0,
-            }}
-          >
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1">
-                <Icon type="user" />
-                <span className="nav-text">nav 1</span>
+                <Icon type="pie-chart" />
+                <span>Option 1</span>
               </Menu.Item>
               <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span className="nav-text">nav 2</span>
+                <Icon type="desktop" />
+                <span>Option 2</span>
               </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span className="nav-text">nav 3</span>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Icon type="bar-chart" />
-                <span className="nav-text">nav 4</span>
-              </Menu.Item>
-              <Menu.Item key="5">
-                <Icon type="cloud-o" />
-                <span className="nav-text">nav 5</span>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <Icon type="appstore-o" />
-                <span className="nav-text">nav 6</span>
-              </Menu.Item>
-              <Menu.Item key="7">
-                <Icon type="team" />
-                <span className="nav-text">nav 7</span>
-              </Menu.Item>
-              <Menu.Item key="8">
-                <Icon type="shop" />
-                <span className="nav-text">nav 8</span>
+              <SubMenu
+                key="sub1"
+                title={
+                  <span>
+                    <Icon type="user" />
+                    <span>User</span>
+                  </span>
+                }
+              >
+                <Menu.Item key="3">Tom</Menu.Item>
+                <Menu.Item key="4">Bill</Menu.Item>
+                <Menu.Item key="5">Alex</Menu.Item>
+              </SubMenu>
+              <SubMenu
+                key="sub2"
+                title={
+                  <span>
+                    <Icon type="team" />
+                    <span>Team</span>
+                  </span>
+                }
+              >
+                <Menu.Item key="6">Team 1</Menu.Item>
+                <Menu.Item key="8">Team 2</Menu.Item>
+              </SubMenu>
+              <Menu.Item key="9">
+                <Icon type="file" />
+                <span>File</span>
               </Menu.Item>
             </Menu>
           </Sider>
-          <Layout style={{ marginLeft: 200 }}>
+          <Layout>
             <Header style={{ background: '#fff', padding: 0 }} />
-            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-              <MainSwitcher routes={routes} fatherPath={path} />
+            <Content style={{ margin: '0 16px' }}>
+              <MainSwitcher switcherData={{ ...switcherData }} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>

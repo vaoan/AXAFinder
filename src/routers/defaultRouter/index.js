@@ -3,7 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import Loader from 'components/LayoutComponents/Loader'
 import { connect } from 'react-redux'
 
-/*eslint no-constant-condition: "ignore"*/
+/*eslint no-constant-condition: 0*/
 
 @withRouter
 @connect(({ user }) => ({ user }))
@@ -25,13 +25,9 @@ class DefaultRouter extends React.Component {
       return 'main'
     }
 
-    console.log(pathname)
-
     const isUserAuthorized = user.token
     const isUserLoading = user.loading
     const isLoginLayout = getLayout() === 'login'
-
-    console.log(isLoginLayout)
 
     const BootstrappedLayout = () => {
       // show loader when user in check authorization process, not authorized yet and not on login pages

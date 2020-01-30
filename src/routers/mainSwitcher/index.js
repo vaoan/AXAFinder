@@ -4,15 +4,32 @@ import Status404 from 'pages/status/status404'
 
 class MainSwitcher extends React.Component {
   render() {
-    const { routes, fatherPath = '' } = this.props
+    const {
+      switcherData: { routes, routeArrayPath = [] },
+    } = this.props
+
+    const fatherPath = routeArrayPath.map(r => r.path).join()
     return (
       <Switch>
         {routes.map(route => {
           const { children = null, exact = false, path, Component = undefined } = route
+
+          const fullPath = `${fatherPath}${path}`
+
+          if (path === '/find') console.log(fullPath, routeArrayPath)
           return Component ? (
             <Route
-              path={`${fatherPath}${path}`}
-              render={() => <Component routes={children} route={route} />}
+              path={fullPath}
+              render={() => (
+                <Component
+                  switcherData={{
+                    fullPath,
+                    routes: children,
+                    routeArrayPath: [...routeArrayPath, route],
+                    route,
+                  }}
+                />
+              )}
               exact={exact}
               key={`${fatherPath}${path}`}
             />
