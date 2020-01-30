@@ -11,6 +11,12 @@ const loadable = loader =>
 
 export const routes = [
   {
+    path: '/',
+    breadcrumbName: 'Cover',
+    Component: loadable(() => import('pages/cover')),
+    exact: true,
+  },
+  {
     path: '/login',
     breadcrumbName: 'login',
     Component: loadable(() => import('pages/user/login')),
@@ -19,10 +25,14 @@ export const routes = [
   {
     path: '/dashboard',
     breadcrumbName: 'Dashboard',
+    Component: loadable(() => import('pages/dashboard')),
+    auth: true,
     children: [
       {
         path: '/find',
         breadcrumbName: 'Find',
+        Component: loadable(() => import('pages/dashboard/find')),
+        auth: true,
       },
     ],
   },

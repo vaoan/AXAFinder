@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet'
 import { SITE_NAME } from 'constants/base'
 import { routes } from 'routers/routes'
 import MainSwitcher from 'routers/mainSwitcher'
+import DefaultRouter from 'routers/defaultRouter'
 
 class Router extends React.Component {
   render() {
@@ -11,7 +12,9 @@ class Router extends React.Component {
     return (
       <ConnectedRouter history={history}>
         <Helmet titleTemplate={`${SITE_NAME} | %s`} title="Index" />
-        <MainSwitcher routes={routes} />
+        <DefaultRouter>
+          <MainSwitcher routes={routes} />
+        </DefaultRouter>
       </ConnectedRouter>
     )
   }
