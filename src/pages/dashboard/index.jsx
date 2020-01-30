@@ -1,62 +1,73 @@
-import React from 'react'
-import { BackTop, Layout } from 'antd'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import classNames from 'classnames'
-import TopBar from 'components/LayoutComponents/TopBar'
-import Menu from 'components/LayoutComponents/Menu'
-import Footer from 'components/LayoutComponents/Footer'
-import Breadcrumbs from 'components/LayoutComponents/Breadcrumbs'
+import React, { Component } from 'react'
+import { Layout, Menu, Icon } from 'antd'
 import MainSwitcher from 'routers/mainSwitcher'
 
-const mapStateToProps = ({ settings }) => ({
-  isBorderless: settings.isBorderless,
-  isSquaredBorders: settings.isSquaredBorders,
-  isFixedWidth: settings.isFixedWidth,
-  isMenuShadow: settings.isMenuShadow,
-  isMenuTop: settings.isMenuTop,
-})
+const { Header, Content, Footer, Sider } = Layout
 
-@withRouter
-@connect(mapStateToProps)
-class MainLayout extends React.PureComponent {
+class Dashboard extends Component {
   render() {
     const {
-      isBorderless,
-      isSquaredBorders,
-      isFixedWidth,
-      isMenuShadow,
-      isMenuTop,
       routes,
-      route,
+      route: { path },
     } = this.props
     return (
-      <Layout
-        className={classNames({
-          settings__borderLess: isBorderless,
-          settings__squaredBorders: isSquaredBorders,
-          settings__fixedWidth: isFixedWidth,
-          settings__menuShadow: isMenuShadow,
-          settings__menuTop: isMenuTop,
-        })}
-      >
-        <BackTop />
-        <Menu />
+      <>
         <Layout>
-          <Layout.Header>
-            <TopBar />
-          </Layout.Header>
-          <Layout.Content style={{ height: '100%', position: 'relative' }}>
-            <Breadcrumbs />
-            <MainSwitcher routes={routes} fatherPath={route.path} />
-          </Layout.Content>
-          <Layout.Footer>
-            <Footer />
-          </Layout.Footer>
+          <Sider
+            style={{
+              overflow: 'auto',
+              height: '100vh',
+              position: 'fixed',
+              left: 0,
+            }}
+          >
+            <div className="logo" />
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+              <Menu.Item key="1">
+                <Icon type="user" />
+                <span className="nav-text">nav 1</span>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Icon type="video-camera" />
+                <span className="nav-text">nav 2</span>
+              </Menu.Item>
+              <Menu.Item key="3">
+                <Icon type="upload" />
+                <span className="nav-text">nav 3</span>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Icon type="bar-chart" />
+                <span className="nav-text">nav 4</span>
+              </Menu.Item>
+              <Menu.Item key="5">
+                <Icon type="cloud-o" />
+                <span className="nav-text">nav 5</span>
+              </Menu.Item>
+              <Menu.Item key="6">
+                <Icon type="appstore-o" />
+                <span className="nav-text">nav 6</span>
+              </Menu.Item>
+              <Menu.Item key="7">
+                <Icon type="team" />
+                <span className="nav-text">nav 7</span>
+              </Menu.Item>
+              <Menu.Item key="8">
+                <Icon type="shop" />
+                <span className="nav-text">nav 8</span>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <Layout style={{ marginLeft: 200 }}>
+            <Header style={{ background: '#fff', padding: 0 }} />
+            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+              <MainSwitcher routes={routes} fatherPath={path} />
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          </Layout>
         </Layout>
-      </Layout>
+      </>
     )
   }
 }
 
-export default MainLayout
+export default Dashboard
