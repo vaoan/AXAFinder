@@ -1,0 +1,21 @@
+@import 'assets/styles/config/variables.less';
+
+.breadcrumbs {
+  padding: rem(10) rem(20);
+  background-color: $white;
+  border-bottom: 1px solid @text-color-secundary;
+}
+
+.path {
+  font-size: rem(18);
+  color: @text-color;
+}
+
+.arrow {
+  display: inline-block;
+  margin: 0 rem(10);
+  &:after {
+    display: inline-block;
+    content: '·';
+  }
+}
