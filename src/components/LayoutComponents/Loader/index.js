@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import styles from './style.module.scss'
+import styles from '../../../assets/styles/components/loading.less'
 
 const Loader = ({ spinning = true, fullScreen }) => (
   <div

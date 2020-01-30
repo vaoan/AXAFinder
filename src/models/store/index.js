@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 import { createHashHistory } from 'history'
 import reducers from 'models/redux'
 import sagas from 'models/redux/sagas'
-import enviroment from 'constants/base'
+import { ENVIROMENT } from 'constants/base'
 
 export const history = createHashHistory({
   basename: '', // The base URL of the app (see below)
@@ -14,7 +14,7 @@ export const history = createHashHistory({
 const sagaMiddleware = createSagaMiddleware()
 const routeMiddleware = routerMiddleware(history)
 const middlewares = [sagaMiddleware, routeMiddleware]
-if (enviroment.enviroment === 'development' && true) {
+if (ENVIROMENT === 'development') {
   middlewares.push(logger)
 }
 const store = createStore(reducers(history), compose(applyMiddleware(...middlewares)))

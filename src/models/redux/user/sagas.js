@@ -1,9 +1,12 @@
+import React from 'react'
 import { all, takeEvery, put, call } from 'redux-saga/effects'
-import { login } from 'services/user'
+import { notification } from 'antd'
+import { login, verifyAccount } from 'services/user'
+import T from 'components/SystemComponent/T'
+import { LOCALSTORAGE_SESSION_ATTRIBUTE } from 'constants/base'
 import actions from './actions'
 
 export function* LOGIN({ payload: { email, password } }) {
-  console.log({ email, password })
   yield put({
     type: actions.SET_STATE,
     payload: {
@@ -19,25 +22,35 @@ export function* LOGIN({ payload: { email, password } }) {
   if (success) {
     yield put({
       type: actions.LOAD_CURRENT_ACCOUNT,
-      payload: { ...success },
+      payload: { ...success.data },
     })
   } else {
     yield put({
       type: actions.SET_STATE,
     })
+    notification.warning({
+      message: <T>Login error</T>,
+      description: <T>Login error description</T>,
+    })
   }
 }
 
-export function* LOAD_CURRENT_ACCOUNT({ token, ...data }) {
-  console.log(data)
+export function* LOAD_CURRENT_ACCOUNT({ payload: { token, ...data } }, auto = false) {
+  // console.log(data, token)
   yield put({
-    type: actions.SET_STATE,
+    type: actions.RETRIEVING,
     payload: {
       loading: true,
     },
   })
+  let response
+  try {
+    response = yield call(verifyAccount, { token, ...data })
+  } catch (e) {
+    response = null
+  }
 
-  if (token) {
+  if (response) {
     const { uid: id, photoURL: avatar, name, email, roles } = data
     yield put({
       type: actions.SET_STATE,
@@ -51,11 +64,23 @@ export function* LOAD_CURRENT_ACCOUNT({ token, ...data }) {
         authorized: true,
       },
     })
-    yield put({ type: actions.LOAD_MENU })
+    if (!auto)
+      notification.success({
+        message: <T>Login success</T>,
+        description: <T>Login success description</T>,
+      })
+    // yield put({ type: actions.LOAD_MENU })
+  } else {
+    console.log('Login token error')
+    if (!auto)
+      notification.info({
+        message: <T>Login token error</T>,
+        description: <T>Login token error description</T>,
+      })
   }
 
   yield put({
-    type: actions.SET_STATE,
+    type: actions.RETRIEVING,
     payload: {
       loading: false,
     },
@@ -74,15 +99,20 @@ export default function* rootSaga() {
   const dataUser = {
     payload: {},
   }
-  const userLS = localStorage.getItem('user')
-  if (userLS) {
-    dataUser.payload = JSON.parse(userLS)
+  const userLS = localStorage.getItem(LOCALSTORAGE_SESSION_ATTRIBUTE)
+
+  if (userLS && typeof userLS === 'string') {
+    try {
+      dataUser.payload = JSON.parse(userLS)
+    } catch (e) {
+      dataUser.payload = {}
+    }
   }
 
   yield all([
     takeEvery(actions.LOGIN, LOGIN),
     takeEvery(actions.LOAD_CURRENT_ACCOUNT, LOAD_CURRENT_ACCOUNT),
     takeEvery(actions.LOGOUT, LOGOUT),
-    LOAD_CURRENT_ACCOUNT(dataUser), // run once on app load to check user auth
+    LOAD_CURRENT_ACCOUNT(dataUser, true), // run once on app load to check user auth
   ])
 }

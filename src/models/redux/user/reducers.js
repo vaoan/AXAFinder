@@ -17,6 +17,10 @@ export default function userReducer(state = initialState, action) {
       const { payload = {} } = action
       return { ...initialState, ...payload }
     }
+    case actions.RETRIEVING: {
+      const { payload = {} } = action
+      return { ...state, ...payload }
+    }
     default:
       return state
   }

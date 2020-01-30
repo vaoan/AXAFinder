@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Login from 'pages/user/login'
 import { Layout } from 'antd'
 
 class Cover extends Component {
@@ -10,9 +9,9 @@ class Cover extends Component {
 
   render() {
     return (
-      <Layout className="login">
+      <Layout>
         <Layout.Content className="full-centering container-content">
-          <Login />
+          Home
         </Layout.Content>
       </Layout>
     )
