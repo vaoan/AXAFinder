@@ -1,19 +1,11 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import userReducer from './user/reducers'
-
-// import challenges from './challenge/reducers'
+import user from './user/reducers'
+import clients from './clients/reducers'
 
 export default history =>
   combineReducers({
     router: connectRouter(history),
-    user: userReducer,
-    /* menu,
-    settings,
-    cupones,
-    stores,
-    products,
-    commerce,
-    segments,
-    challenges,*/
+    user,
+    clients,
   })

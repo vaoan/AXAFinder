@@ -1,12 +1,15 @@
+import React from 'react'
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
-import { login, currentAccount, logout } from 'services/user'
+import store from 'store'
+import { login, verifyAccount } from 'services/user'
+import T from 'components/SystemComponent/T'
+import { LOCALSTORAGE_SESSION_ATTRIBUTE } from 'constants/base'
 import actions from './actions'
 
-export function* LOGIN({ payload }) {
-  const { email, password } = payload
+export function* LOGIN({ payload: { email, password } }) {
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.SET_STATE,
     payload: {
       loading: true,
     },
@@ -18,58 +21,73 @@ export function* LOGIN({ payload }) {
     success = null
   }
   if (success) {
-    notification.success({
-      message: 'Sesion iniciada',
-      description: 'Ha ingresado correctamente a DaviPay',
-    })
-    success.email = email
     yield put({
-      type: 'user/LOAD_CURRENT_ACCOUNT',
-      payload: { ...success },
+      type: actions.LOAD_CURRENT_ACCOUNT,
+      payload: { ...success.data },
     })
   } else {
-    notification.warn({
-      message: 'Sesion fallida',
-      description:
-        'La combinacion de usuario y contraseña es incorrecta. Porfavor verifique e intente nuevamente',
-    })
     yield put({
-      type: 'user/SET_STATE',
-      payload: {
-        loading: false,
-      },
+      type: actions.SET_STATE,
+    })
+    notification.warning({
+      message: <T>Login error</T>,
+      description: <T>Login error description</T>,
     })
   }
 }
 
-export function* LOAD_CURRENT_ACCOUNT(data) {
-  const { payload } = data
+export function* LOAD_CURRENT_ACCOUNT({ payload: { token, ...data } }, auto = false) {
+  // console.log(data, token)
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.RETRIEVING,
     payload: {
       loading: true,
     },
   })
-  const response = yield call(currentAccount, payload)
-  if (response.decoded) {
-    const { uid: id, photoURL: avatar, name, email, roles } = response.decoded
+  let response
+  try {
+    response = yield call(verifyAccount, { token, ...data })
+  } catch (e) {
+    response = null
+  }
+
+  if (response) {
+    const { uid: id, photoURL: avatar, name, email, roles } = data
     yield put({
-      type: 'user/SET_STATE',
+      type: actions.SET_STATE,
       payload: {
         id,
         name,
         email,
         avatar,
         role: roles,
-        token: response,
+        token,
         authorized: true,
       },
     })
-    yield put({ type: actions.LOAD_MENU })
+    if (!auto) {
+      notification.success({
+        message: <T>Login success</T>,
+        description: <T>Login success description</T>,
+      })
+    }
+    store.set(LOCALSTORAGE_SESSION_ATTRIBUTE, { token, ...data })
+    // yield put({ type: actions.LOAD_MENU })
+  } else {
+    console.log('Login token error')
+    if (!auto)
+      notification.info({
+        message: <T>Login token error</T>,
+        description: <T>Login token error description</T>,
+      })
+    yield put({
+      type: actions.SET_STATE,
+    })
+    store.clearAll()
   }
 
   yield put({
-    type: 'user/SET_STATE',
+    type: actions.RETRIEVING,
     payload: {
       loading: false,
     },
@@ -77,20 +95,10 @@ export function* LOAD_CURRENT_ACCOUNT(data) {
 }
 
 export function* LOGOUT() {
-  yield call(logout)
-  localStorage.clear()
+  // yield call(logout)
+  store.clearAll()
   yield put({
-    type: 'user/SET_STATE',
-    payload: {
-      id: '',
-      name: '',
-      role: '',
-      email: '',
-      avatar: '',
-      token: null,
-      authorized: false,
-      loading: false,
-    },
+    type: actions.SET_STATE,
   })
 }
 
@@ -98,15 +106,20 @@ export default function* rootSaga() {
   const dataUser = {
     payload: {},
   }
-  const userLS = localStorage.getItem('user')
+  const userLS = store.get(LOCALSTORAGE_SESSION_ATTRIBUTE)
+
   if (userLS) {
-    dataUser.payload = JSON.parse(userLS)
+    try {
+      dataUser.payload = userLS
+    } catch (e) {
+      dataUser.payload = {}
+    }
   }
 
   yield all([
     takeEvery(actions.LOGIN, LOGIN),
     takeEvery(actions.LOAD_CURRENT_ACCOUNT, LOAD_CURRENT_ACCOUNT),
     takeEvery(actions.LOGOUT, LOGOUT),
-    LOAD_CURRENT_ACCOUNT(dataUser), // run once on app load to check user auth
+    LOAD_CURRENT_ACCOUNT(dataUser, true), // run once on app load to check user auth
   ])
 }

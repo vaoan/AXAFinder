@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Login from 'pages/user/login'
 import { Layout } from 'antd'
+import { Redirect, withRouter } from 'react-router-dom'
 
+@withRouter
 class Cover extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +13,7 @@ class Cover extends Component {
     return (
       <Layout className="login">
         <Layout.Content className="full-centering container-content">
-          <Login />
+          <Redirect to="/login" />
         </Layout.Content>
       </Layout>
     )
