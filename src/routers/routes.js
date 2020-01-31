@@ -23,6 +23,12 @@ export const routes = [
     exact: true,
   },
   {
+    path: '/logout',
+    breadcrumbName: 'logout',
+    Component: loadable(() => import('pages/user/logout')),
+    exact: true,
+  },
+  {
     path: '/dashboard',
     breadcrumbName: 'Dashboard',
     Component: loadable(() => import('pages/dashboard')),

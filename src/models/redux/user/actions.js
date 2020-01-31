@@ -14,4 +14,8 @@ export const ACTION_Login = ({ email, password }) => ({
   },
 })
 
+export const ACTION_Logout = () => ({
+  type: actions.LOGOUT,
+})
+
 export default actions
