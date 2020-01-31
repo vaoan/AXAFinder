@@ -1,6 +1,6 @@
 # Basic knowledge about this repository
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Uses [Antd](https://ant.design/) as it's main theme and component library. Edits Webpack configurations using different loaders and libraries but mainly it takes advantage of [Customize-cra](https://github.com/arackaf/customize-cra) to include the theme mentionated before and also load Web Workers [worker-loader](https://github.com/webpack-contrib/worker-loader) optimizing dramatically the browser reaction over the extense process the filters always suggests
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Uses [Antd](https://ant.design/) as its main theme and component library. Edits Webpack configurations using different loaders and libraries but mainly it takes advantage of [Customize-cra](https://github.com/arackaf/customize-cra) to include the theme mentionated before and also load Web Workers [worker-loader](https://github.com/webpack-contrib/worker-loader) optimizing dramatically the browser reaction over the extense process the filters always suggests
 
 ## Requirements not met
 Image cache was not included in this repository, mostly because time limitations but also because I'm not familiar with the technology. I'm highly willing to learn it.
