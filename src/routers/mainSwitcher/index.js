@@ -13,10 +13,7 @@ class MainSwitcher extends React.Component {
       <Switch>
         {routes.map(route => {
           const { children = null, exact = false, path, Component = undefined } = route
-
           const fullPath = `${fatherPath}${path}`
-
-          if (path === '/find') console.log(fullPath, routeArrayPath)
           return Component ? (
             <Route
               path={fullPath}

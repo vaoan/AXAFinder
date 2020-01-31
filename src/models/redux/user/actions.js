@@ -6,7 +6,7 @@ const actions = {
   LOGOUT: 'user/LOGOUT',
 }
 
-export const loginAction = ({ email, password }) => ({
+export const ACTION_Login = ({ email, password }) => ({
   type: actions.LOGIN,
   payload: {
     email,

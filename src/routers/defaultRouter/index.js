@@ -40,7 +40,7 @@ class DefaultRouter extends React.Component {
       }
       // redirect to main dashboard when user on login page and authorized
       if (isLoginLayout && isUserAuthorized) {
-        return <Redirect to="/dashboard" />
+        return <Redirect to="/dashboard/find" />
       }
       // in other case render previously set layout
       return children

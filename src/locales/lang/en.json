@@ -17,6 +17,9 @@
     "welcome": "Hello <br/> <strong>World</strong>",
     "English": "English",
     "Spanish": "Spanish",
+    "Loading data": "Loading data",
+    "Load finished": "Load finished",
+    "Load failed": "Load failed. Please try again",
     "Cover message 1": "Integer sit amet justo dolor. Cras luctus eget diam at rhoncus. Vivamus et sollicitudin ex. Curabitur scelerisque posuere dictum.",
     "Cover message 2": "Integer sit amet justo dolor. Cras luctus eget diam at rhoncus. Vivamus et sollicitudin ex. Curabitur scelerisque posuere dictum."
   }
