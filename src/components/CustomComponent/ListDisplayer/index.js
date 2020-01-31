@@ -16,7 +16,7 @@ const ListDisplayer = ({
   grid = gridDefault,
   pagination = {
     defaultPageSize: 12,
-    pageSizeOptions: ['12', '21', '30'],
+    pageSizeOptions: ['10', '20', '30'],
     showSizeChanger: true,
     hideOnSinglePage: true,
   },

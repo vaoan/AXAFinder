@@ -49,9 +49,14 @@ class ClientFilter extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { dataSource } = this.props
+    const { dataSource = [], schemaSource = {}, form } = this.props
     if (dataSource !== prevProps.dataSource) {
       this.setProfessions()
+    }
+    if (JSON.stringify(schemaSource) !== JSON.stringify(prevProps.schemaSource)) {
+      Object.keys(schemaSource).forEach(element => {
+        form.setFieldsValue({ [element]: schemaSource[element] })
+      })
     }
   }
 

@@ -1,6 +1,5 @@
 export default (worker, type, callback) => {
   worker.addEventListener('message', e => {
-    console.log(e)
     if (!e) return
     const {
       data: { SERVICEWORKER_type },

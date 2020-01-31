@@ -1,15 +1,16 @@
 import React from 'react'
 import { Layout, Card } from 'antd'
 import T from 'components/SystemComponent/T'
-import ClientSelector from 'components/CustomComponent/ClientSelector'
+import ClientSelector from 'pages/dashboard/find/ClientSelector'
 import ListDisplayer from 'components/CustomComponent/ListDisplayer'
-import ClientCard from './clientCard'
-import ClientFilter from './clientFilter'
+import ClientFilter from './ClientFilter'
+import ClientCard from './ClientCard'
 
 class DashboardFind extends React.Component {
   state = {
     clients: [],
     filteredClients: [],
+    friend: '',
   }
 
   onChangeTown = clients => {
@@ -20,9 +21,13 @@ class DashboardFind extends React.Component {
     this.setState({ filteredClients })
   }
 
+  onSelectFriend = friend => {
+    this.setState({ friend })
+  }
+
   render() {
     const { clients: serverData } = this.props
-    const { clients, filteredClients } = this.state
+    const { clients, filteredClients, friend } = this.state
 
     return (
       <Layout className="container-content">
@@ -33,16 +38,20 @@ class DashboardFind extends React.Component {
         </div>
         <div className="container-content--t">
           <Card title={<T>Member filter</T>}>
-            <ClientFilter dataSource={clients} callback={this.onFilterClients} />
+            <ClientFilter
+              schemaSource={{ name: friend }}
+              dataSource={clients}
+              callback={this.onFilterClients}
+            />
           </Card>
         </div>
         <div className="container-content--t">
           <Card>
             <ListDisplayer
-              grid={{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 3, xl: 3, xxl: 3 }}
+              grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
               dataSource={filteredClients}
             >
-              <ClientCard />
+              <ClientCard selectFriendCallback={this.onSelectFriend} />
             </ListDisplayer>
           </Card>
         </div>
