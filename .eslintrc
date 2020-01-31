@@ -10,6 +10,7 @@
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react/jsx-props-no-spreading": 0,
+    "no-restricted-globals": [0, "self"],
     "no-template-curly-in-string": "off",
     "react/prop-types": 0,
     "react/prefer-stateless-function": 0,

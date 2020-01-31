@@ -12,14 +12,11 @@ class Dashboard extends Component {
   }
 
   onCollapse = collapsed => {
-    console.log(collapsed)
     this.setState({ collapsed })
   }
 
   render() {
     const { switcherData } = this.props
-
-    console.log(switcherData)
 
     const { collapsed } = this.state
     return (

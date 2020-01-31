@@ -3,13 +3,21 @@ import { Form, Input, Select } from 'antd'
 import GenericLabel from 'components/CustomComponent/GenericLabel'
 import { withTranslation } from 'react-i18next'
 import T from 'components/SystemComponent/T'
-import { getAllProfessions, filterClients } from 'factories/clients'
+import { getAllProfessions } from 'factories/clients'
+import { service_workers_events } from 'constants/service_workers'
+import ClientsWorker from 'factories/clients/index.worker'
+import postWebWorker from 'utils/postWebWorker'
+import listenerWebWorker from 'utils/listenerWebWorker'
+
+let worker = {}
 
 const onChange = (props, { name = '', professions = [] } = {}) => {
   const { callback, dataSource } = props
-  if (callback) {
-    const filtered = filterClients(dataSource, { name, professions })
-    callback(filtered)
+  if (callback && worker) {
+    postWebWorker(worker, service_workers_events.FILTER_IN, {
+      dataSource,
+      filters: { name, professions },
+    })
   }
 }
 
@@ -29,7 +37,15 @@ class ClientFilter extends React.Component {
   }
 
   componentDidMount() {
+    worker = new ClientsWorker()
     this.setProfessions()
+    listenerWebWorker(worker, service_workers_events.FILTER_OUT, eventData => {
+      const { data: filtered } = eventData
+      const { callback } = this.props
+      if (callback) {
+        callback(filtered)
+      }
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -81,7 +97,6 @@ class ClientFilter extends React.Component {
                 placeholder={`${t('please select the professions you are looking for')}`}
                 optionFilterProp="children"
                 filterOption={(input, option) => {
-                  console.log(option.props.children)
                   return option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }}
               >

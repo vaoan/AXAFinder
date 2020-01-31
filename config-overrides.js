@@ -9,7 +9,7 @@ const {
   overrideDevServer,
   watchAll,
   fixBabelImports,
-  addWebpackPlugin,
+  addWebpackModuleRule,
 } = require('customize-cra')
 
 module.exports = {
@@ -25,6 +25,10 @@ module.exports = {
     addLessLoader({
       javascriptEnabled: true,
       modifyVars: themeConfig.themeVars,
+    }),
+    addWebpackModuleRule({
+      test: /\.worker\.js$/,
+      use: { loader: 'worker-loader' },
     }),
   ),
   devServer: overrideDevServer(
