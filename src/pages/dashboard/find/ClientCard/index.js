@@ -57,7 +57,7 @@ const ClientCard = ({
               {friends.map(p => (
                 <React.Fragment key={`${id}${p}`}>
                   <Button type="link" onClick={() => onSelectFriend(p)}>
-                    <T>{p.trim().toLowerCase()}</T>
+                    {p}
                   </Button>
                 </React.Fragment>
               ))}

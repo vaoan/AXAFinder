@@ -7,7 +7,7 @@ import Status404 from 'pages/status/status404'
 @connect(({ user }) => ({ user }))
 class Authorize extends React.Component {
   render() {
-    const { children, redirect = false, to = '/404', roles = [], ...rest } = this.props
+    const { children, redirect = false, to = '/404', roles = [] } = this.props
 
     const authorized = validateRole(roles)
     const AuthorizedChildren = () => {
@@ -20,7 +20,7 @@ class Authorize extends React.Component {
         return <Status404 />
       }
       // if access is successful render children
-      return React.cloneElement(children, { ...rest })
+      return children
     }
     return AuthorizedChildren()
   }

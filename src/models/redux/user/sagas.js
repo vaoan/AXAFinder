@@ -108,9 +108,9 @@ export default function* rootSaga() {
   }
   const userLS = store.get(LOCALSTORAGE_SESSION_ATTRIBUTE)
 
-  if (userLS && typeof userLS === 'string') {
+  if (userLS) {
     try {
-      dataUser.payload = JSON.parse(userLS)
+      dataUser.payload = userLS
     } catch (e) {
       dataUser.payload = {}
     }
