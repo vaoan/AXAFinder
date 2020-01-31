@@ -7,6 +7,8 @@ Image cache was not included in this repository, mostly because time limitations
 
 ## Features
 This web app has a few features that our heroes might enjoy.
+- i18n:
+Because gnomes probably speak Spanish and the heros English... that's not the gender but hey, is something!
 - Login:
 Privacy is very important and having credentials would make sure the users can have their information secured. As this App doesn't really have a backend, any credentials work as is just a "mock" system ready to be connected when the endpoints get created. 
 ** Don't worry about credentials. Anything works. It's just a test ***
