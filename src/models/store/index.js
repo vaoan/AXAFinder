@@ -17,7 +17,7 @@ const middlewares = [sagaMiddleware, routeMiddleware]
 if (ENVIROMENT === 'development') {
   middlewares.push(logger)
 }
-const store = createStore(reducers(history), compose(applyMiddleware(...middlewares)))
+export const store = createStore(reducers(history), compose(applyMiddleware(...middlewares)))
 sagaMiddleware.run(sagas)
 
 export default store

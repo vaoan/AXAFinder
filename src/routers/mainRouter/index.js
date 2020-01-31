@@ -13,7 +13,7 @@ class Router extends React.Component {
       <ConnectedRouter history={history}>
         <Helmet titleTemplate={`${SITE_NAME} | %s`} title="Index" />
         <DefaultRouter>
-          <MainSwitcher routes={routes} />
+          <MainSwitcher switcherData={{ routes }} />
         </DefaultRouter>
       </ConnectedRouter>
     )

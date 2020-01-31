@@ -1,8 +1,7 @@
 import endpoints from 'constants/endpoints'
 import Axios from 'axios'
-import { LOCALSTORAGE_SESSION_ATTRIBUTE } from 'constants/base'
 
-/*eslint no-constant-condition: "ignore"*/
+/*eslint no-constant-condition: 0*/
 
 // Moved api call into own function (for easy test swapping)
 export function login({ email, password }) {
@@ -53,7 +52,6 @@ export function verifyAccount({ token, ...data }) {
     setTimeout(() => {
       const random = Math.floor(Math.random() * 100)
       if (random > 4) {
-        localStorage.setItem(LOCALSTORAGE_SESSION_ATTRIBUTE, JSON.stringify({ token, ...data }))
         resolve({
           data: {
             token,
@@ -66,7 +64,6 @@ export function verifyAccount({ token, ...data }) {
           request: {},
         })
       } else {
-        localStorage.clear()
         reject(new Error('Emulate token error'))
       }
     })

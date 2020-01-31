@@ -1,6 +1,7 @@
 import React from 'react'
 import { all, takeEvery, put, call } from 'redux-saga/effects'
 import { notification } from 'antd'
+import store from 'store'
 import { login, verifyAccount } from 'services/user'
 import T from 'components/SystemComponent/T'
 import { LOCALSTORAGE_SESSION_ATTRIBUTE } from 'constants/base'
@@ -64,11 +65,13 @@ export function* LOAD_CURRENT_ACCOUNT({ payload: { token, ...data } }, auto = fa
         authorized: true,
       },
     })
-    if (!auto)
+    if (!auto) {
       notification.success({
         message: <T>Login success</T>,
         description: <T>Login success description</T>,
       })
+    }
+    store.set(LOCALSTORAGE_SESSION_ATTRIBUTE, { token, ...data })
     // yield put({ type: actions.LOAD_MENU })
   } else {
     console.log('Login token error')
@@ -77,6 +80,10 @@ export function* LOAD_CURRENT_ACCOUNT({ payload: { token, ...data } }, auto = fa
         message: <T>Login token error</T>,
         description: <T>Login token error description</T>,
       })
+    yield put({
+      type: actions.SET_STATE,
+    })
+    store.clearAll()
   }
 
   yield put({
@@ -89,7 +96,7 @@ export function* LOAD_CURRENT_ACCOUNT({ payload: { token, ...data } }, auto = fa
 
 export function* LOGOUT() {
   // yield call(logout)
-  localStorage.clear()
+  store.clearAll()
   yield put({
     type: actions.SET_STATE,
   })
@@ -99,7 +106,7 @@ export default function* rootSaga() {
   const dataUser = {
     payload: {},
   }
-  const userLS = localStorage.getItem(LOCALSTORAGE_SESSION_ATTRIBUTE)
+  const userLS = store.get(LOCALSTORAGE_SESSION_ATTRIBUTE)
 
   if (userLS && typeof userLS === 'string') {
     try {
