@@ -1,56 +1,51 @@
 import React from 'react'
 import { Layout, Card } from 'antd'
-import { connect } from 'react-redux'
-import { ACTION_LoadClients } from 'models/redux/clients/actions'
 import T from 'components/SystemComponent/T'
 import ClientSelector from 'components/CustomComponent/ClientSelector'
 import ListDisplayer from 'components/CustomComponent/ListDisplayer'
 import ClientCard from './clientCard'
+import ClientFilter from './clientFilter'
 
-const mapStateToProps = state => ({
-  clients: state.clients,
-})
-
-const dispatchToProps = dispatch => ({
-  loadClients: () => {
-    dispatch(ACTION_LoadClients())
-  },
-})
-
-@connect(mapStateToProps, dispatchToProps)
 class DashboardFind extends React.Component {
   state = {
     clients: [],
-  }
-
-  componentDidMount() {
-    const { loadClients } = this.props
-    loadClients()
+    filteredClients: [],
   }
 
   onChangeTown = clients => {
     this.setState({ clients })
   }
 
+  onFilterClients = filteredClients => {
+    this.setState({ filteredClients })
+  }
+
   render() {
     const { clients: serverData } = this.props
-    const { clients } = this.state
+    const { clients, filteredClients } = this.state
 
     return (
       <Layout className="container-content">
-        <div className="container-content--y">
+        <div className="container-content--t">
           <Card title={<T>Select a town</T>}>
             <ClientSelector callback={this.onChangeTown} clients={serverData} />
           </Card>
         </div>
-        <Card>
-          <ListDisplayer
-            grid={{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 3, xl: 3, xxl: 3 }}
-            dataSource={clients}
-          >
-            <ClientCard />
-          </ListDisplayer>
-        </Card>
+        <div className="container-content--t">
+          <Card title={<T>Member filter</T>}>
+            <ClientFilter dataSource={clients} callback={this.onFilterClients} />
+          </Card>
+        </div>
+        <div className="container-content--t">
+          <Card>
+            <ListDisplayer
+              grid={{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 3, xl: 3, xxl: 3 }}
+              dataSource={filteredClients}
+            >
+              <ClientCard />
+            </ListDisplayer>
+          </Card>
+        </div>
       </Layout>
     )
   }

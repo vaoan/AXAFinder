@@ -15,6 +15,7 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0-beta.2",
     "react-i18next": "^11.3.1",
+    "react-image": "^2.2.2",
     "react-loadable": "^5.5.0",
     "react-logger": "^1.1.0",
     "react-redux": "^7.1.3",
