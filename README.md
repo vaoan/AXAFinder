@@ -11,18 +11,18 @@ This web app has a few features that our heroes might enjoy.
 Because gnomes probably speak Spanish and the heros English... that's not the gender but hey, is something!
 - Login:
 Privacy is very important and having credentials would make sure the users can have their information secured. As this App doesn't really have a backend, any credentials work as is just a "mock" system ready to be connected when the endpoints get created. 
-*** Don't worry about credentials. Anything works. It's just a test ***
-- Testing requests
+**Don't worry about credentials. Anything works. It's just a test**
+- Testing requests:
 As this App won't have a back end to support it, this web site features faked requests. It's a wrote up number where a 5% of the calls will fail. It's a good way to check the behaviour of failing requests as this is always important to be considered and probably one of the most forgotten funcionalities to test
-- Routing
+- Routing:
 A simple to configure routing system based on hierarchy. End user won't notice much about this but a developer can decide on using different levels of Auth on every path of its router making very easy to read and understand every page
-- Country selector and filtering
+- Country selector and filtering:
 Using the data provided by the test, the user can use different options to filter their information. Selecting the country/town/zone first and after that, the user is allowed to type names to filter in a -like- type as is also case insensitive. It can also filter by profession. Combining the filtering option it will create an exclusive type of filter where if it's empty is ignored but if it has items, it must pass every filter added.
-- Friends system
+- Friends system:
 Filtering is a very useful option. A person who is looking to network in an unknown town might be interested in also meeting friends of people they get to know. By clicking the name of a friend in a member's card, the name of this friend will be instantly added to the user name filter and the App will look for any member with that name (Since more than one person could have that name)
-- Web worker
+- Web worker:
 To keep a consistent filter with the user's inputs, it was added a new stack to work over those filters withou any impact over the site.
-- Menu
+- Menu:
 A very simple menu to navigate the site. The user can do Logout from there.
 
 # How to run the site?
