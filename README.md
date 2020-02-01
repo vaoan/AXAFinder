@@ -13,7 +13,7 @@ Because gnomes probably speak Spanish and the heros English... that's not the ge
 Privacy is very important and having credentials would make sure the users can have their information secured. As this App doesn't really have a backend, any credentials work as is just a "mock" system ready to be connected when the endpoints get created. 
 **Don't worry about credentials. Anything works. It's just a test**
 - Testing requests:
-As this App won't have a back end to support it, this web site features faked requests. It's a wrote up number where a 5% of the calls will fail. It's a good way to check the behaviour of failing requests as this is always important to be considered and probably one of the most forgotten funcionalities to test
+As this App won't have a back end to support it, this web site features faked requests. It's a wrote up number where a 5% of the calls will fail. It's a good way to check the behaviour of failing requests as this is always important to be considered and probably one of the most forgotten functionalities to test
 - Routing:
 A simple to configure routing system based on hierarchy. End user won't notice much about this but a developer can decide on using different levels of Auth on every path of its router making very easy to read and understand every page
 - Country selector and filtering:
